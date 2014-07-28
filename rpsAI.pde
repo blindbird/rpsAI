@@ -19,9 +19,9 @@ void setup() {
 void draw() {
   background(255);
   
-  image(rock, 80, 450);
-  image(paper, 300, 450);
-  image(scissors, 520, 450);
+  image(rock, 80, 450, 100, 100);
+  image(paper, 300, 450, 100, 100);
+  image(scissors, 520, 450, 100, 100);
   
   stroke(0);
   noFill();
@@ -31,15 +31,15 @@ void draw() {
   
   if (user != 0) {
     switch (user) {
-      case 1: image(rock, 100, 200); break;
-      case 2: image(paper, 100, 200); break;
-      case 3: image(scissors, 100, 200); break;
+      case 1: image(rock, 100, 200, 100, 100); break;
+      case 2: image(paper, 100, 200, 100, 100); break;
+      case 3: image(scissors, 100, 200, 100, 100); break;
     }
     
     switch (computer) {
-      case 1: image(rock, 300, 200); break;
-      case 2: image(paper, 300, 200); break;
-      case 3: image(scissors, 300, 200); break;
+      case 1: image(rock, 300, 200, 100, 100); break;
+      case 2: image(paper, 300, 200, 100, 100); break;
+      case 3: image(scissors, 300, 200, 100, 100); break;
     }
     
     if (user == 1 && computer == 3) win = true;
