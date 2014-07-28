@@ -4,6 +4,7 @@ int[] prevchoices;
 int computer;
 int ai;
 int win;
+boolean played;
 
 // win = 0 -> lose
 // win = 1 -> tie
@@ -52,10 +53,7 @@ void draw() {
   text("always", 710, 115);
   text("scissors", 710, 135);
   text("random", 710, 230);
-  text("based on", 710, 315);
-  text("most", 710, 325);
-  text("frequently", 710, 335);
-  text("chosen", 710, 345);
+  text("smart??", 710, 330);
   
   if (user != 0) {
     switch (user) {
@@ -70,10 +68,53 @@ void draw() {
       case 3: image(scissors, 300, 200, 100, 100); break;
     }
     
+    
+    if (user == 1 && computer == 3) win = 2;
+    if (user == 2 && computer == 1) win = 2;
+    if (user == 3 && computer == 2) win = 2;
+    
+    if (computer == 1 && user == 3) win = 0;
+    if (computer == 2 && user == 1) win = 0;
+    if (computer == 3 && user == 2) win = 0;
+    
+    if (user == computer) win = 1;
+    
     if (win == 2) text("you win!", 100, 50);
     if (win == 0) text("you lose!", 100, 50);
     if (win == 1) text("tie", 100, 50);
+    
+    prevchoices[user - 1]++;
+  
+    if (played == false) {
+      if (ai == 1) computer = 3;      // computer always chooses scissors
+      if (ai == 2) computer = (int)random(1, 4);      // computer chooses randomly
+    
+      if (ai == 3) {
+        int max = -1;
+        int min = 999;
+        int mostplayed = 0;
+        int leastplayed = 0;
+        for (int i = 0; i < 3; i++) {
+          if (prevchoices[i] > max) {
+            max = prevchoices[i];
+            mostplayed = i + 1;
+          }
+          if (prevchoices[i] < min) {
+            min = prevchoices[i];
+            leastplayed = i + 1;
+          }
+        }
+    
+        beat(mostplayed);
+      
+        if (max > 5) {
+          beat(leastplayed);
+        }
+      }
+    }
+    played = true;
   }
+  
 }
 
 void mousePressed() {
@@ -85,47 +126,7 @@ void mousePressed() {
   if (mouseX >= 700 && mouseX <= 780 && mouseY >= 200 && mouseY <= 250) ai = 2;
   if (mouseX >= 700 && mouseX <= 780 && mouseY >= 300 && mouseY <= 350) ai = 3;
   
-  if (user != 0) prevchoices[user - 1]++;
-  
-  if (ai == 1) computer = 3;      // computer always chooses scissors
-  if (ai == 2) computer = (int)random(1, 4);      // computer chooses randomly
-  
-  if (ai == 3) {
-    int max = -1;
-    int min = 999;
-    int mostplayed = 0;
-    int leastplayed = 0;
-    for (int i = 0; i < 3; i++) {
-      if (prevchoices[i] > max) {
-        max = prevchoices[i];
-        mostplayed = i + 1;
-      }
-      if (prevchoices[i] < min) {
-        min = prevchoices[i];
-        leastplayed = i + 1;
-      }
-    }
-  
-    beat(mostplayed);
-    
-    if (max > 5) {
-      beat(leastplayed);
-    }
-    
-    
-  }
-  
-  if (user == 1 && computer == 3) win = 2;
-  if (user == 2 && computer == 1) win = 2;
-  if (user == 3 && computer == 2) win = 2;
-    
-  if (computer == 1 && user == 3) win = 0;
-  if (computer == 2 && user == 1) win = 0;
-  if (computer == 3 && user == 2) win = 0;
-    
-  if (user == computer) win = 1;
-  
-  
+  played = false;
 }
 
 void beat(int n) {
