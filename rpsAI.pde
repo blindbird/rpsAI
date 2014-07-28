@@ -2,6 +2,7 @@ PImage rock, paper, scissors;
 int user;
 int[] prevchoices;
 int computer;
+int ai;
 boolean win, tie;
 
 void setup() {
@@ -14,6 +15,8 @@ void setup() {
   prevchoices = new int[3];
   computer = 0;
   win = false;
+  
+  ai = 1;
 }
 
 void draw() {
@@ -62,23 +65,25 @@ void mousePressed() {
   
   prevchoices[user - 1]++;
   
-  //computer = 3;      // computer always chooses scissors
-  //computer = (int)random(1, 4);      // computer chooses randomly
+  if (ai == 1) computer = 3;      // computer always chooses scissors
+  if (ai == 2) computer = (int)random(1, 4);      // computer chooses randomly
   
-  int max = -1;
-  int mostplayed = 0;
-  for (int i = 0; i < 3; i++) {
-    if (prevchoices[i] > max) {
-      max = prevchoices[i];
-      mostplayed = i + 1;
-    }
+  if (ai == 3) {
+    int max = -1;
+    int mostplayed = 0;
+    for (int i = 0; i < 3; i++) {
+      if (prevchoices[i] > max) {
+        max = prevchoices[i];
+        mostplayed = i + 1;
+      }
     
-  }
+    }
   
-  switch (mostplayed) {
-    case 1: computer = 2; break;
-    case 2: computer = 3; break;
-    case 3: computer = 1; break;
+    switch (mostplayed) {
+      case 1: computer = 2; break;
+      case 2: computer = 3; break;
+      case 3: computer = 1; break;
+    }
   }
   
 
