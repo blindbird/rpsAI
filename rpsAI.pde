@@ -50,8 +50,8 @@ void draw() {
   
   fill(0);
   stroke(0);
-  text("always", 710, 115);
-  text("scissors", 710, 135);
+  text("stupid", 710, 115);
+  text("(scissors)", 710, 135);
   text("random", 710, 230);
   text("smart??", 710, 330);
   
